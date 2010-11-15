@@ -1,0 +1,28 @@
+Home Information Display
+Sean Reifschneider
+jafo@tummy.com
+
+This is a simple home information display meant to be run in a browser
+in kiosk mode on a 1080x1920 (rotated HD) display.  You will want to
+customize the weather station and forecast locations in the "signcron"
+file.
+
+To install, you will need to set up cron to periodically run the signcron,
+say every 10 minutes:
+
+   */10 * * * * /var/www/html/sign1/signcron >/tmp/signcron.out 2>&1
+
+Then you'll need to configure Apache to serve up the sign CGI:
+
+   ScriptAlias /sign1/ /var/www/html/sign1/sign.cgi
+
+Now restart Apache and go to /sign1/ in a web browser.  It should display
+the information page.
+
+Note that if you want to experiment with it, set up another copy as
+"signtest" instead of "sign1", and you will get tracebacks with useful
+information.  Otherwise, the sign will just display "Oops" and reload
+every 60 seconds.  To set up the test version add this line and restart
+Apache:
+
+   ScriptAlias /signtest/ /var/www/html/signtest/sign.cgi

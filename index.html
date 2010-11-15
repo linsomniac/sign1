@@ -16,7 +16,7 @@
       font-weight: bold;
       }
    span.meridian {
-      font-size: 66%;
+      font-size: 66%%;
       text-transform: uppercase;
       font-weight: normal;
       color: #666666;
@@ -28,7 +28,7 @@
       padding-left: 50px;
       }
    span.date_suffix {
-      font-size: 66%;
+      font-size: 66%%;
       vertical-align: super;
       color: #666666;
       }
@@ -73,13 +73,13 @@
       }
 -->
 </style>
-<meta http-equiv="refresh" content="{{reloadseconds}}">
+<meta http-equiv="refresh" content="%(reloadseconds)s">
 </head>
 
 <body>
-<div class="time">{{time_now}}<span class="meridian">{{meridian}}</span></div>
-<div class="date">{{week_day}} <span class="date_number">{{month_day}}</span><span class="date_suffix">{{month_day_suffix}}</span></div>
-<div class="temperature">{{temperature}}&deg; <span class="wind">{{wind}}</span></div>
-{{!forecast}}
+<div class="time">%(time)s<span class="meridian">%(meridian)s</span></div>
+<div class="date">%(week_day)s <span class="date_number">%(month_day)s</span><span class="date_suffix">%(month_day_suffix)s</span></div>
+<div class="temperature">%(temperature)s&deg; <span class="wind">%(wind)s</span></div>
+%(forecast)s
 </body>
 </html>
