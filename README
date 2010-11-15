@@ -7,6 +7,14 @@ in kiosk mode on a 1080x1920 (rotated HD) display.  You will want to
 customize the weather station and forecast locations in the "signcron"
 file.
 
+See these two URLs for a screenshot and instructions on running the browser:
+
+   http://www.tummy.com/journals/entries/jafo_20101025_224922
+      See the second image on the above page for a picture.
+
+   http://www.tummy.com/journals/entries/jafo_20101115_025655
+      Instructions on running Chrome as a kiosk browser.
+
 To install, you will need to set up cron to periodically run the signcron,
 say every 10 minutes:
 
