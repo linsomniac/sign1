@@ -10,7 +10,7 @@ from bottle import route, view, error
 @route('/')
 @view('index.html')
 def index():
-	import time, sys, math, os
+	import time, sys, math, os, pickle
 
 	reloadseconds = int(math.ceil(61 - (time.time()%60)))
 	time_now = time.strftime('%l:%M')
@@ -40,11 +40,9 @@ def index():
 		wind = fp.read().strip()
 		fp.close()
 
-	forecast = ''
-	if os.path.exists('/tmp/google.forecast'):
-		fp = open('/tmp/google.forecast', 'r')
-		forecast = fp.read().strip()
-		fp.close()
+	weather = []
+	if os.path.exists('/tmp/google.forecastpickle'):
+		weather = pickle.load(open('/tmp/google.forecastpickle', 'r'))
 
 	return(locals())
 

@@ -80,6 +80,11 @@
 <div class="time">{{time_now}}<span class="meridian">{{meridian}}</span></div>
 <div class="date">{{week_day}} <span class="date_number">{{month_day}}</span><span class="date_suffix">{{month_day_suffix}}</span></div>
 <div class="temperature">{{temperature}}&deg; <span class="wind">{{wind}}</span></div>
-{{!forecast}}
+
+<div class="forecast">
+%for forecast in weather['forecasts']:
+   <span class="forecast_entry"><span class="forecast_day">{{forecast['day_of_week']}}</span><span class="forecast_condition">{{forecast['condition']}}</span><span class="forecast_icon"><img src="http://www.google.com{{forecast['icon']}}" /></span><span class="forecast_temps"><span class="forecast_low">{{forecast['low']}}</span>/<span class="forecast_high">{{forecast['high']}}</span></span></span>
+%end
+</div>
 </body>
 </html>
