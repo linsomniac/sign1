@@ -3,7 +3,7 @@
 #
 #  Load the weather information from wunderground
 
-import time, urllib, random, sys, pickle
+import time, urllib, random, sys
 
 if '-f' not in sys.argv:
 	time.sleep(random.randint(0, 120))
@@ -41,8 +41,3 @@ for forecast in result['forecasts']:
 	fp.write('<span class="forecast_entry"><span class="forecast_day">%(day_of_week)s</span><span class="forecast_condition">%(condition)s</span><span class="forecast_icon"><img src="http://www.google.com%(icon)s" /></span><span class="forecast_temps"><span class="forecast_low">%(low)s</span>/<span class="forecast_high">%(high)s</span></span></span>\n' % forecast)
 fp.write('</div>\n')
 fp.close()
-
-fp = open('/tmp/google.forecastpickle.tmp', 'w')
-pickle.dump(result, fp)
-fp.close()
-os.rename('/tmp/google.forecastpickle.tmp', '/tmp/google.forecastpickle')
