@@ -3,11 +3,13 @@
 #
 #  CGI for the sign
 
-from bottle import route, view
+import bottle
+from bottle import route, view, error
+
 
 @route('/')
 @view('index.html')
-def hello():
+def index():
 	import time, sys, math, os
 
 	reloadseconds = int(math.ceil(61 - (time.time()%60)))
@@ -46,6 +48,25 @@ def hello():
 
 	return(locals())
 
-import bottle
-bottle.debug(True)
+
+###################################################
+import os
+if 'signtest' in os.environ.get('REQUEST_URI'):
+	bottle.debug(True)
+else:
+	@error(500)
+	def error500(error):
+		return (
+			'<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"\n'
+			'    "http://www.w3.org/TR/html4/loose.dtd">\n'
+			'<html>\n'
+			'<head>\n'
+			'<meta http-equiv="refresh" content="60">\n'
+			'</head>\n'
+			'Oops!\n'
+			'</html>\n'
+			)
+
+
+#####################################
 bottle.run(server = bottle.CGIServer)
