@@ -3,7 +3,7 @@
 #
 #  Load the weather information from wunderground
 
-import time, urllib, random, sys, pickle
+import time, urllib, random, sys, pickle, os
 
 if '-f' not in sys.argv:
 	time.sleep(random.randint(0, 120))
