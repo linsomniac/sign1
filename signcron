@@ -1,0 +1,43 @@
+#!/usr/bin/env python
+# vim: ts=3 sw=3 ai
+#
+#  Load the weather information from wunderground
+
+import time, urllib, random, sys
+
+if '-f' not in sys.argv:
+	time.sleep(random.randint(0, 120))
+
+fp = urllib.urlopen('http://api.wunderground.com/weatherstation/WXCurrentObXML.asp?ID=KCOFORTC3')
+lines = fp.readlines()
+fp.close()
+
+tempstr = [ line for line in lines if 'temp_f' in line
+		][0].split('>')[1].split('<')[0].split('.')[0]
+windstr = ( [ line for line in lines if 'wind_dir' in line
+		][0].split('>')[1].split('<')[0]
+		+ ' ' + [ line for line in lines if 'wind_mph' in line
+			][0].split('>')[1].split('<')[0].split('.')[0]
+		+ '>' + [ line for line in lines if 'wind_gust' in line
+			][0].split('>')[1].split('<')[0].split('.')[0]
+		)
+
+fp = open('/tmp/wunder.temp', 'w')
+fp.write(tempstr)
+fp.close()
+fp = open('/tmp/wunder.wind', 'w')
+fp.write(windstr)
+fp.close()
+
+#fp = urllib.urlopen('http://api.wunderground.com/auto/wui/geo/ForecastXML/index.xml?query=FortCollins,CO')
+#lines = fp.readlines()
+#fp.close()
+
+import pywapi
+result = pywapi.get_weather_from_google('80525')
+fp = open('/tmp/google.forecast', 'w')
+fp.write('<div class="forecast">\n')
+for forecast in result['forecasts']:
+	fp.write('<span class="forecast_entry"><span class="forecast_day">%(day_of_week)s</span><span class="forecast_condition">%(condition)s</span><span class="forecast_icon"><img src="http://www.google.com%(icon)s" /></span><span class="forecast_temps"><span class="forecast_low">%(low)s</span>/<span class="forecast_high">%(high)s</span></span></span>\n' % forecast)
+fp.write('</div>\n')
+fp.close()
