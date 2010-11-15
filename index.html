@@ -40,7 +40,7 @@
       color: #ffd300;
       }
    .wind {
-      font-size: 90px;
+      font-size: 120px;
       color: #cccccc;
       }
    .forecast {
@@ -73,7 +73,9 @@
       padding-left: 15px;
       width: 200px;
       height: 200px;
-      display: block;
+      }
+   .next_item {
+      clear: both;
       }
 -->
 </style>
@@ -87,7 +89,7 @@
 <div class="weather">
    <div class="tempbox">
    <div class="temperature">{{temperature}}&deg;</div>
-   <div class="wind">{{wind}}</div>
+   <div class="wind">{{wind.split(None, 1)[1]}}</div>
    </div>
 
 %def old_show_forecast(forecast):
@@ -121,6 +123,8 @@
    </span>
 %end
 </div>
+
+<div class="next_item"></div>
 
 </body>
 </html>
