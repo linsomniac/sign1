@@ -11,61 +11,64 @@
       #background-image: url('http://jafo.tummy.com/minkey.png');
       font-family: Verdana, sans-serif;
       }
-   div.time {
+   .time {
       font-size: 260px;
       font-weight: bold;
       }
-   span.meridian {
+   .meridian {
       font-size: 66%;
       text-transform: uppercase;
       font-weight: normal;
       color: #999999;
       }
-   div.date {
+   .date {
       font-size: 220px;
       }
-   span.date_number {
+   .date_number {
       padding-left: 50px;
       }
-   span.date_suffix {
+   .date_suffix {
       font-size: 66%;
       vertical-align: super;
       color: #999999;
       }
-   div.temperature {
+   .tempbox {
+      float: left;
+      }
+   .temperature {
       font-size: 220px;
       color: #ffd300;
       }
-   span.wind {
+   .wind {
       font-size: 90px;
       color: #cccccc;
       }
-   div.forecast {
+   .forecast {
       font-size: 70px;
-      }
-   span.forecast_entry {
-      display: inline;
       float: left;
-      border: 5px solid #778899;
-      width: 240px;
-      height: 530px;
       }
-   span.forecast_day {
+   .forecast_entry {
+      border: 5px solid #778899;
+      width: 530px;
+      }
+   .forecast_day {
       font-weight: bold;
       }
-   span.forecast_condition {
+   .forecast_condition {
       display: block;
       }
-   span.forecast_temps {
+   .forecast_temps {
       display: block;
       }
-   span.forecast_low {
-      color: #ccccff;
+   .forecast_low {
+      color: #aaaaff;
+      font-weight: bold;
       }
-   span.forecast_high {
-      color: #ffcccc;
+   .forecast_high {
+      color: #ffaaaa;
+      font-weight: bold;
       }
-   span.forecast_icon img {
+   .forecast_icon img {
       padding-left: 15px;
       width: 200px;
       height: 200px;
@@ -77,14 +80,46 @@
 </head>
 
 <body>
+
 <div class="time">{{time_now}}<span class="meridian">{{meridian}}</span></div>
 <div class="date">{{week_day}} <span class="date_number">{{month_day}}</span><span class="date_suffix">{{month_day_suffix}}</span></div>
-<div class="temperature">{{temperature}}&deg; <span class="wind">{{wind}}</span></div>
+<div class="weather">
+   <div class="tempbox">
+   <div class="temperature">{{temperature}}&deg;</div>
+   <div class="wind">{{wind}}</div>
+   </div>
 
-<div class="forecast">
-%for forecast in weather['forecasts']:
-   <span class="forecast_entry"><span class="forecast_day">{{forecast['day_of_week']}}</span><span class="forecast_condition">{{forecast['condition']}}</span><span class="forecast_icon"><img src="http://www.google.com{{forecast['icon']}}" /></span><span class="forecast_temps"><span class="forecast_low">{{forecast['low']}}</span>/<span class="forecast_high">{{forecast['high']}}</span></span></span>
+%def old_show_forecast(forecast):
+   <span class="forecast_entry">
+      <span class="forecast_day">{{forecast['day_of_week']}}</span>
+      <span class="forecast_condition">{{forecast['condition']}}</span>
+      <span class="forecast_icon">
+         <img src="http://www.google.com{{forecast['icon']}}" /></span>
+      <span class="forecast_temps">
+         <span class="forecast_low">{{forecast['low']}}</span>
+         /
+         <span class="forecast_high">{{forecast['high']}}</span>
+      </span>
+   </span>
+%end
+%def show_forecast(forecast):
+   <div class="forecast_entry">
+      <span class="forecast_condition">{{forecast['condition']}}</span>
+      <span class="forecast_temps">
+         <span class="forecast_low">{{forecast['low']}}</span>
+         &lt;-&gt;
+         <span class="forecast_high">{{forecast['high']}}</span>
+      </span>
+   </div>
+%end
+
+%if weather:
+   <span class="forecast">
+%  show_forecast(weather['forecasts'][0])
+%  show_forecast(weather['forecasts'][1])
+   </span>
 %end
 </div>
+
 </body>
 </html>
