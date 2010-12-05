@@ -49,7 +49,7 @@ def index():
 
 ###################################################
 import os
-if 'signtest' in os.environ.get('REQUEST_URI'):
+if 'signtest' in os.environ.get('REQUEST_URI', ''):
 	bottle.debug(True)
 else:
 	@error(500)
