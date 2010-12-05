@@ -89,7 +89,7 @@
 <div class="weather">
    <div class="tempbox">
    <div class="temperature">{{temperature}}&deg;</div>
-   <div class="wind">{{wind.split(None, 1)[1]}}</div>
+   <div class="wind">{{wind and wind.split(None, 1)[1]}}</div>
    </div>
 
 %def old_show_forecast(forecast):
