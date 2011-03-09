@@ -44,7 +44,13 @@ def index():
 	if os.path.exists('/tmp/google.forecastpickle'):
 		weather = pickle.load(open('/tmp/google.forecastpickle', 'r'))
 
-	return(locals())
+	stats = ''
+	if os.path.exists('/dev/shm/sign1-stats'):
+		fp = open('/dev/shm/sign1-stats', 'r')
+		stats = fp.readline().strip().split()
+		fp.close()
+
+	return locals()
 
 
 ###################################################
